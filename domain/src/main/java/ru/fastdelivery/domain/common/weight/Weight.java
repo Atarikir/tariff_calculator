@@ -1,5 +1,7 @@
 package ru.fastdelivery.domain.common.weight;
 
+import ru.fastdelivery.domain.exception.InvalidWeightException;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -13,7 +15,7 @@ public record Weight(BigInteger weightGrams) implements Comparable<Weight> {
 
     public Weight {
         if (isLessThanZero(weightGrams)) {
-            throw new IllegalArgumentException("Weight cannot be below Zero!");
+            throw InvalidWeightException.negative();
         }
     }
 

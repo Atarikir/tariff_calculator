@@ -65,6 +65,15 @@
             <version>3.5.0</version>
             <configuration>
                 <createDependencyReducedPom>false</createDependencyReducedPom>
+                <transformers>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <mainClass>ru.fastdelivery.Main</mainClass>
+                    </transformer>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                        <resource>META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports</resource>
+                    </transformer>
+                </transformers>
             </configuration>
             <executions>
                 <execution>
@@ -72,13 +81,6 @@
                     <goals>
                         <goal>shade</goal>
                     </goals>
-                    <configuration>
-                        <transformers>
-                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                <mainClass>ru.fastdelivery.Main</mainClass>
-                            </transformer>
-                        </transformers>
-                    </configuration>
                 </execution>
             </executions>
         </plugin>

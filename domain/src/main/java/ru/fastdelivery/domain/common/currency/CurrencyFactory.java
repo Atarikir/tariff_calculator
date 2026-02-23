@@ -1,18 +1,21 @@
 package ru.fastdelivery.domain.common.currency;
 
-import lombok.RequiredArgsConstructor;
+import ru.fastdelivery.domain.exception.InvalidCurrencyException;
 
 /**
  * Создание валюты с проверками
  */
-@RequiredArgsConstructor
 public class CurrencyFactory {
 
     private final CurrencyPropertiesProvider propertiesProvider;
 
+    public CurrencyFactory(CurrencyPropertiesProvider propertiesProvider) {
+        this.propertiesProvider = propertiesProvider;
+    }
+
     public Currency create(String code) {
         if (code == null || !propertiesProvider.isAvailable(code)) {
-            throw new IllegalArgumentException("Currency code contains not available value");
+            throw InvalidCurrencyException.notAvailable(code);
         }
 
         return new Currency(code);
